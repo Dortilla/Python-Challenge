@@ -2,7 +2,7 @@
 ### In this challenge, I was tasked with creating scripts to analyze two different data sets: **PyBank** & **PyPoll**
 
 ## **PyBank:**
-### The PyBank scripts opens the file "budget_data.csv" and takes note of:
+### The PyBank script opens the file "budget_data.csv" and takes note of:
  - The total number of months in the dataset
  - The sum of "Profit/Losses" over the entire period
  - The changes of "Profit/Losses" over the entire period, and then the average of all of those changes
