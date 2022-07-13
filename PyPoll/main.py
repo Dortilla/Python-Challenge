@@ -1,8 +1,8 @@
 import os
 import csv
-import numpy as np
 
 election_csv = os.path.join("Resources", "election_data.csv" )
+
 BallotIDCount = []
 County = []
 Candidates = set()
@@ -25,14 +25,29 @@ Raymon = CandidateCountDict["Raymon Anthony Doane"]
 Diana = CandidateCountDict["Diana DeGette"]
 
 s = sum(CandidateCountDict.values())
-for k, v in CandidateCountDict.items():
-    percent = v *100.0 / s
+charlespercent = round(Charles *100.0 / s , 3)
+raymonpercent = round(Raymon *100.0 / s, 3)
+dianapercent = round(Diana *100.0 / s, 3)
+winner = max(CandidateCountDict, key=CandidateCountDict.get)
+totalvotes= len(BallotIDCount)
 
-    
+toprint = f"""Election Results
+--------------------------------------
+Total Votes:  {totalvotes}
+--------------------------------------
+Charles Casper Stockham:
+{charlespercent}% ( {Charles} )
+Diana Degette:
+{dianapercent}% ( {Diana} )
+Raymon Anthony Doane:
+{raymonpercent}% (  {Raymon} )
+--------------------------------------
+Winner: {winner}
+--------------------------------------"""
 
-print(len(BallotIDCount))
-print(CandidateCountDict)
-print(k,percent)
-print(k,percent)
-print(k,percent)
+print(toprint)
 
+analysispath = os.path.join("Analysis" , 'results.txt')
+with open(analysispath, "w") as analysisresults:
+    analysisresults.writelines(toprint)
+analysisresults.close()
