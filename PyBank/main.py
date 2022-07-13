@@ -1,23 +1,24 @@
-import os
+import os # importing modules that I will be using in this assignment
 import csv
 
-budget_csv = os.path.join("Resources", "budget_data.csv" ) # assign path of file to 'budget_csv'
+budget_csv = os.path.join("Resources", "budget_data.csv" ) # assign paths to files i will be using
+resultspath = os.path.join("Analysis" , "results.txt" )
 
-date = [] #variables 
+date = [] # designating variables 
 revenue = [] 
 revenue_change = []
 
-with open(budget_csv) as csvfile:
+with open(budget_csv) as csvfile: # opening csv file
     csvreader = csv.reader(csvfile, delimiter=",")
-    next(csvreader)
+    next(csvreader) # skipping header
     for row in csvreader:
-        date.append(row[0])
+        date.append(row[0]) # updating variables
         revenue.append(float(row[1]))
 
 
 
-    for i in range(1,len(revenue)):
-        revenue_change.append(revenue[i] - revenue[i-1])
+    for i in range(1,len(revenue)): # calculate avg revenue change, along with finding days of min and max revenue change
+        revenue_change.append(revenue[i] - revenue[i-1]) 
     
         avg_revenue_change = sum(revenue_change) / len(revenue_change)
 
@@ -29,7 +30,8 @@ with open(budget_csv) as csvfile:
         max_revenue_change_date = str(date[revenue_change.index(max(revenue_change))])
         min_revenue_change_date = str(date[revenue_change.index(min(revenue_change))])
 
-toprint = f"""Financial Analysis
+# saving analysis results
+toprint = f"""Financial Analysis 
 ------------------
 Total Months:  {len(date)}
 Total: ${round(sum(revenue))}
@@ -38,7 +40,5 @@ Greatest Increase in Profits: {max_revenue_change_date} (${max_revenue_change})
 Greatest Decrease in Profits: {min_revenue_change_date} (${min_revenue_change}) """
 print(toprint)
 
-resultspath = os.path.join("Analysis" , "results.txt" )
-with open(resultspath , "w") as external_file: 
- external_file.writelines(toprint)
-external_file.close()
+with open(resultspath , "w") as external_file: # create / open results.txt
+ external_file.writelines(toprint) # write contents of 'toprint' in results.txt
